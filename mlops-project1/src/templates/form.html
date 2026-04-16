@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diabetes Risk Classifier</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="/static/form.css"/>
+  
+</head>
+<body>
+
+<main>
+  <h1 class="page-title">Diabetes Risk Assessment</h1>
+ 
+  <form id="diabetes-form">
+
+    <div class="section-card">
+      <div class="section-label">01 — Demographics</div>
+      <div class="fields-grid">
+        <div class="field">
+          <label for="Age">Age</label>
+          <select id="Age" name="Age" required>
+            <option value="">Select age range</option>
+            <option value="0">0-17</option>
+            <option value="1">18-24</option>
+            <option value="2">25-29</option>
+            <option value="3">30-34</option>
+            <option value="4">35-39</option>
+            <option value="5">40-44</option>
+            <option value="6">45-49</option>
+            <option value="7">50-54</option>
+            <option value="8">55-59</option>
+            <option value="9">60-64</option>
+            <option value="10">65-69</option>
+            <option value="11">70-74</option>
+            <option value="12">75-79</option>
+            <option value="13">80+</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Sex">Sex</label>
+          <select id="Sex" name="Sex" required>
+            <option value="">Select</option>
+            <option value="0">Female</option>
+            <option value="1">Male</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Education">Education Level</label>
+          <select id="Education" name="Education" required>
+            <option value="">Select</option>
+            <option value="1">No schooling</option>
+            <option value="2">Elementary</option>
+            <option value="3">High school graduate</option>
+            <option value="4">College graduate</option>
+            <option value="5">Work</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Income">Income Level</label>
+          <select id="Income" name="Income" required>
+            <option value="">Select</option>
+            <option value="1">Less than €1000</option>
+            <option value="2">€1000-€5000</option>
+            <option value="3">€5000-€10,000</option>
+            <option value="8">€10,000+</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label">02 — Health Metrics</div>
+      <div class="fields-grid">
+        <div class="field">
+          <label for="BMI">BMI (Body Mass Index)</label>
+          <input type="number" id="BMI" name="BMI" step="0.1" min="10" max="60" required placeholder="e.g., 27.5"/>
+        </div>
+
+        <div class="field">
+          <label for="GenHlth">General Health</label>
+          <select id="GenHlth" name="GenHlth" required>
+            <option value="">Select</option>
+            <option value="1">Excellent</option>
+            <option value="2">Good</option>
+            <option value="3">Fair</option>
+            <option value="4">Poor</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="MentHlth">Mental Health (days in last 30)</label>
+          <input type="number" id="MentHlth" name="MentHlth" min="0" max="30" required placeholder="0-30"/>
+        </div>
+
+        <div class="field">
+          <label for="PhysHlth">Physical Health (days in last 30)</label>
+          <input type="number" id="PhysHlth" name="PhysHlth" min="0" max="30" required placeholder="0-30"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label">03 — Medical History</div>
+      <div class="fields-grid">
+        <div class="field">
+          <label for="HighBP">High Blood Pressure</label>
+          <select id="HighBP" name="HighBP" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="HighChol">High Cholesterol</label>
+          <select id="HighChol" name="HighChol" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="CholCheck">Cholesterol Check (last 5 years)</label>
+          <select id="CholCheck" name="CholCheck" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Stroke">Stroke history</label>
+          <select id="Stroke" name="Stroke" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="HeartDiseaseorAttack">Heart disease/attack</label>
+          <select id="HeartDiseaseorAttack" name="HeartDiseaseorAttack" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="DiffWalk">Difficulty walking</label>
+          <select id="DiffWalk" name="DiffWalk" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label">04 — Lifestyle</div>
+      <div class="fields-grid">
+        <div class="field">
+          <label for="Smoker">Smoker (100+ cigarettes)</label>
+          <select id="Smoker" name="Smoker" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="PhysActivity">Physical activity (last 30 days)</label>
+          <select id="PhysActivity" name="PhysActivity" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Fruits">Eats Fruits (1+ daily)</label>
+          <select id="Fruits" name="Fruits" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="Veggies">Eats Vegetables (1+ daily)</label>
+          <select id="Veggies" name="Veggies" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="HvyAlcoholConsump">Heavy alcohol consumption</label>
+          <select id="HvyAlcoholConsump" name="HvyAlcoholConsump" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <div class="section-label">05 — Healthcare access</div>
+      <div class="fields-grid">
+        <div class="field">
+          <label for="AnyHealthcare">Has healthcare coverage?</label>
+          <select id="AnyHealthcare" name="AnyHealthcare" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="NoDocbcCost">Couldn't see doctor due to cost</label>
+          <select id="NoDocbcCost" name="NoDocbcCost" required>
+            <option value="">Select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <button type="button" class="reset-btn" onclick="resetForm()">Reset Form</button>
+      <button type="submit" class="submit-btn" id="submitBtn">Predict diabetes risk</button>
+    </div>
+  </form>
+
+  
+  <div id="result-panel">
+    <div id="loading" style="display: none;">
+      <div class="spinner"></div>
+      <p style="margin-top: 10px;">Analyzing your health data...</p>
+    </div>
+    <div id="results-content" style="display: none;">
+      <div class="result-header">
+        <div class="result-icon" id="result-icon"></div>
+        <div>
+          <div class="result-title" id="result-title"></div>
+          <div class="result-subtitle" id="result-subtitle"></div>
+        </div>
+      </div>
+      <div class="risk-bar-wrap">
+        <div class="risk-bar-label">Probability of Diabetes</div>
+        <div class="risk-bar-track">
+          <div class="risk-bar-fill" id="risk-bar"></div>
+        </div>
+      </div>
+      <div class="result-meta">
+        <div class="meta-item">
+          <span class="meta-key">Prediction</span>
+          <span class="meta-val" id="meta-pred">—</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Probability</span>
+          <span class="meta-val" id="meta-conf">—</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-key">Recommendation</span>
+          <span class="meta-val" id="meta-rec">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+<script src="/static/form.js"></script>
+
+
+</body>
+</html>
