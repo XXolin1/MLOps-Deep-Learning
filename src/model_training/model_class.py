@@ -207,15 +207,24 @@ class PyTorchMLP(nn.Module):
         }
         OptimizerClass = optimizer_map.get(optimizer_name.lower(), optim.Adam)
         return OptimizerClass(self.parameters(), lr=self.learning_rate, weight_decay=self.l2_reg)
+
+    def _get_model_device(self) -> torch.device:
+        """Return the current device used by the model parameters."""
+        try:
+            return next(self.parameters()).device
+        except StopIteration:
+            return self.device
     
     def _to_tensor(self, data: Union[np.ndarray, 'pd.DataFrame', torch.Tensor]) -> torch.Tensor:
         """Convert numpy array, pandas DataFrame, or list to tensor."""
+        device = self._get_model_device()
+
         if isinstance(data, torch.Tensor):
-            return data.to(self.device)
+            return data.to(device)
         elif hasattr(data, 'to_numpy'):  # pandas DataFrame
-            return torch.FloatTensor(data.to_numpy().copy()).to(self.device)
+            return torch.FloatTensor(data.to_numpy().copy()).to(device)
         else:  # numpy array or list
-            return torch.FloatTensor(np.asarray(data)).to(self.device)
+            return torch.FloatTensor(np.asarray(data)).to(device)
     
     def forward(self, X: torch.Tensor) -> torch.Tensor:
         """

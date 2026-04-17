@@ -84,6 +84,8 @@ def load_model_with_cached_threshold(path_to_model=None):
             "Please provide the path to the model directory containing the saved model and threshold."
         )
 
+    path_to_model = Path(path_to_model)
+
     # Load the model - try CUDA first, then fall back to CPU
     model_path = path_to_model / "model.pt"
     if not model_path.exists():
@@ -94,6 +96,10 @@ def load_model_with_cached_threshold(path_to_model=None):
     
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = torch.load(model_path, map_location=device, weights_only=False)
+    if hasattr(model, "to"):
+        model.to(device)
+    if hasattr(model, "device"):
+        model.device = device
     
     # Load the cached optimal threshold
     threshold_path = path_to_model / "threshold.joblib"
