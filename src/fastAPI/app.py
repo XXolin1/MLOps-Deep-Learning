@@ -1,4 +1,12 @@
+import os
+
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from fastapi import Request
+from jinja2 import Environment, FileSystemLoader
+from fastapi.responses import HTMLResponse
 from .predict import PredictionRequest
 from .metrics import calculate_metrics, make_prediction
 from .cache_loading import recreate_preprocessing_pipeline, load_model_with_cached_threshold
@@ -7,6 +15,36 @@ import pandas as pd
 import numpy as np
 
 app = FastAPI(title="Deep Learning Project")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+templates_dir = os.path.join(BASE_DIR, "templates")
+static_dir = os.path.join(BASE_DIR, "static")
+
+# Initialize templates
+templates = Jinja2Templates(directory=templates_dir)
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+# Define API endpoints
+# Setup Jinja2 environment
+env = Environment(
+    loader=FileSystemLoader(templates_dir),
+    cache_size=0, 
+    auto_reload=True
+)
+
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    template = env.get_template("form.html")
+    html_content = template.render(request=request)
+    return HTMLResponse(content=html_content)
 
 # Initialize app state
 app.state.model = None
