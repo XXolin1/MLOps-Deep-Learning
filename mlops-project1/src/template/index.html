@@ -1,0 +1,176 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{padding:1.5rem 0;max-width:680px}
+.sec{margin-bottom:1.25rem}
+.sec-label{font-size:11px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:6px}
+.ci{display:flex;align-items:center;gap:9px;padding:9px 11px;border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);cursor:pointer;transition:background .1s}
+.ci:hover{background:var(--color-background-secondary)}
+.ci input{width:15px;height:15px;cursor:pointer;accent-color:var(--color-text-info);flex-shrink:0}
+.ci span{font-size:13px;color:var(--color-text-primary)}
+.field-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field label{font-size:12px;color:var(--color-text-secondary)}
+.field input,.field select{font-size:13px}
+.divider{height:.5px;background:var(--color-border-tertiary);margin:1.25rem 0}
+.btn{width:100%;padding:11px;font-size:14px;font-weight:500;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer;transition:background .15s,transform .1s;margin-top:.25rem}
+.btn:hover{background:var(--color-background-secondary)}
+.btn:active{transform:scale(.99)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.result{padding:1.1rem 1.25rem;border-radius:var(--border-radius-lg);border:.5px solid var(--color-border-tertiary);margin-top:1rem;display:none}
+.result.show{display:block}
+.pos{background:var(--color-background-danger);border-color:var(--color-border-danger)}
+.neg{background:var(--color-background-success);border-color:var(--color-border-success)}
+.r-title{font-size:16px;font-weight:500;margin-bottom:10px}
+.pos .r-title{color:var(--color-text-danger)}
+.neg .r-title{color:var(--color-text-success)}
+.bar-bg{height:5px;background:var(--color-background-tertiary);border-radius:99px;overflow:hidden;margin:6px 0 8px}
+.bar-fill{height:100%;border-radius:99px;transition:width .4s}
+.pos .bar-fill{background:#E24B4A}
+.neg .bar-fill{background:#639922}
+.r-meta{font-size:12px;color:var(--color-text-secondary);display:flex;gap:14px}
+.err{background:var(--color-background-danger);border:.5px solid var(--color-border-danger);color:var(--color-text-danger);border-radius:var(--border-radius-md);padding:10px 14px;font-size:13px;margin-top:.75rem;display:none}
+.err.show{display:block}
+</style>
+
+<div class="wrap">
+  <div class="sec">
+    <div class="sec-label">Conditions &amp; history</div>
+    <div class="check-grid">
+      <label class="ci"><input type="checkbox" id="HighBP"><span>High blood pressure</span></label>
+      <label class="ci"><input type="checkbox" id="HighChol"><span>High cholesterol</span></label>
+      <label class="ci"><input type="checkbox" id="CholCheck"><span>Cholesterol check (5 yrs)</span></label>
+      <label class="ci"><input type="checkbox" id="Smoker"><span>100+ cigarettes smoked</span></label>
+      <label class="ci"><input type="checkbox" id="Stroke"><span>History of stroke</span></label>
+      <label class="ci"><input type="checkbox" id="HeartDiseaseorAttack"><span>Heart disease or attack</span></label>
+      <label class="ci"><input type="checkbox" id="PhysActivity"><span>Physically active (30 days)</span></label>
+      <label class="ci"><input type="checkbox" id="Fruits"><span>Fruits daily</span></label>
+      <label class="ci"><input type="checkbox" id="Veggies"><span>Vegetables daily</span></label>
+      <label class="ci"><input type="checkbox" id="HvyAlcoholConsump"><span>Heavy alcohol use</span></label>
+      <label class="ci"><input type="checkbox" id="AnyHealthcare"><span>Has healthcare coverage</span></label>
+      <label class="ci"><input type="checkbox" id="NoDocbcCost"><span>Skipped doctor — cost</span></label>
+      <label class="ci"><input type="checkbox" id="DiffWalk"><span>Difficulty walking</span></label>
+      <label class="ci"><input type="checkbox" id="Sex"><span>Male</span></label>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec">
+    <div class="sec-label">Health measures</div>
+    <div class="field-row">
+      <div class="field">
+        <label for="BMI">BMI</label>
+        <input type="number" id="BMI" value="25" min="10" max="100" step="0.1">
+      </div>
+      <div class="field">
+        <label for="GenHlth">General health</label>
+        <select id="GenHlth">
+          <option value="1">Excellent</option>
+          <option value="2" selected>Very good</option>
+          <option value="3">Good</option>
+          <option value="4">Fair</option>
+          <option value="5">Poor</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="MentHlth">Poor mental health days</label>
+        <input type="number" id="MentHlth" value="0" min="0" max="30">
+      </div>
+      <div class="field">
+        <label for="PhysHlth">Poor physical health days</label>
+        <input type="number" id="PhysHlth" value="0" min="0" max="30">
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="sec">
+    <div class="sec-label">Demographics</div>
+    <div class="field-row">
+      <div class="field">
+        <label for="Age">Age group</label>
+        <select id="Age">
+          <option value="1">18–24</option>
+          <option value="2">25–29</option>
+          <option value="3">30–34</option>
+          <option value="4">35–39</option>
+          <option value="5" selected>40–44</option>
+          <option value="6">45–49</option>
+          <option value="7">50–54</option>
+          <option value="8">55–59</option>
+          <option value="9">60–64</option>
+          <option value="10">65–69</option>
+          <option value="11">70–74</option>
+          <option value="12">75–79</option>
+          <option value="13">80+</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="Education">Education</label>
+        <select id="Education">
+          <option value="1">Never attended school</option>
+          <option value="2">Elementary</option>
+          <option value="3">Some high school</option>
+          <option value="4" selected>High school graduate</option>
+          <option value="5">Some college</option>
+          <option value="6">College graduate</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="Income">Income</label>
+        <select id="Income">
+          <option value="1">&lt; $10k</option>
+          <option value="2">$10k – $15k</option>
+          <option value="3" selected>$15k – $20k</option>
+          <option value="4">$20k – $25k</option>
+          <option value="5">$25k – $35k</option>
+          <option value="6">$35k – $50k</option>
+          <option value="7">$50k – $75k</option>
+          <option value="8">&gt; $75k</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn" id="btn" onclick="runPredict()">Predict diabetes risk</button>
+  <div class="err" id="err"></div>
+
+  <div class="result" id="result">
+    <div class="r-title" id="r-title"></div>
+    <div class="bar-bg"><div class="bar-fill" id="bar"></div></div>
+    <div class="r-meta">
+      <span id="r-prob"></span>
+      <span id="r-thresh"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+async function runPredict(){
+  const btn=document.getElementById('btn'),result=document.getElementById('result'),err=document.getElementById('err');
+  err.classList.remove('show');result.classList.remove('show');
+  btn.disabled=true;btn.textContent='Running…';
+  const b=id=>document.getElementById(id).checked?1:0;
+  const n=id=>parseFloat(document.getElementById(id).value);
+  const i=id=>parseInt(document.getElementById(id).value);
+  const payload={HighBP:b('HighBP'),HighChol:b('HighChol'),CholCheck:b('CholCheck'),BMI:n('BMI'),Smoker:b('Smoker'),Stroke:b('Stroke'),HeartDiseaseorAttack:b('HeartDiseaseorAttack'),PhysActivity:b('PhysActivity'),Fruits:b('Fruits'),Veggies:b('Veggies'),HvyAlcoholConsump:b('HvyAlcoholConsump'),AnyHealthcare:b('AnyHealthcare'),NoDocbcCost:b('NoDocbcCost'),GenHlth:i('GenHlth'),MentHlth:i('MentHlth'),PhysHlth:i('PhysHlth'),DiffWalk:b('DiffWalk'),Sex:b('Sex'),Age:i('Age'),Education:i('Education'),Income:i('Income')};
+  try{
+    const res=await fetch('http://localhost:8000/predict',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!res.ok){const e=await res.json().catch(()=>({detail:res.statusText}));throw new Error(e.detail||res.statusText);}
+    const data=await res.json();
+    const prob=data.probability,pred=data.prediction,thresh=data.threshold;
+    result.className='result show '+(pred===1?'pos':'neg');
+    document.getElementById('r-title').textContent=pred===1?'Positive — diabetes risk detected':'Negative — no diabetes risk detected';
+    document.getElementById('bar').style.width=(prob*100).toFixed(1)+'%';
+    document.getElementById('r-prob').textContent='Probability: '+(prob*100).toFixed(1)+'%';
+    document.getElementById('r-thresh').textContent='Threshold: '+(thresh*100).toFixed(0)+'%';
+  }catch(e){
+    err.textContent='Error: '+e.message;err.classList.add('show');
+  }finally{
+    btn.disabled=false;btn.textContent='Predict diabetes risk';
+  }
+}
+</script>

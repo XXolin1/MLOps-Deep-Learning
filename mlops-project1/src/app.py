@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, field_validator
 from predict import PredictionRequest
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 
 import joblib
 import os
@@ -15,6 +17,15 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../deliverables')
 from metrics import calculate_metrics, make_prediction
 
 app = FastAPI(title="Deep Learning Project")
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # for development only
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Initialize app state
 app.state.model = None
@@ -67,9 +78,10 @@ else:
 
 
 # Define API endpoints
-@app.get("/")
-def read_root():
-    return {"message": "Welcome in our deep Learning project!"}
+@app.get("/", response_class=HTMLResponse)
+async def home():
+    with open("index.html", "r", encoding="utf-8") as f:
+        return f.read()
 
 
 @app.post("/metrics")
