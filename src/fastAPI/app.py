@@ -38,6 +38,9 @@ async def app_init():
     # Load model, normalization transformer, and optimal threshold
     app.state.model, app.state.optimal_threshold = load_model_with_cached_threshold(model_cache_path)
     app.state.processing_pipeline = recreate_preprocessing_pipeline(data_cache_path)
+    test_df: pd.DataFrame = pd.read_csv(data_cache_path / "test_data.csv")
+    app.state.X_test = test_df.drop("target", axis=1)
+    app.state.Y_test = test_df["target"]
     
     print("Application initialized with cached model, normalization transformer, and optimal threshold.")
 
